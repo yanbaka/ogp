@@ -1,45 +1,57 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' })); // postで渡せる容量を増やす
-app.use(bodyParser.json()); // これがないとexpressのpostパラメーターが空になる
-const { Storage } = require('@google-cloud/storage');
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' })) // postで渡せる容量を増やす
+app.use(bodyParser.json()) // これがないとexpressのpostパラメーターが空になる
+const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({
   projectId: 'pikachu-test',
   keyFilename: './pikachu-test-8dc69a5db590.json',
-});
-const bucketName = 'ogpimage';
-const bucket = storage.bucket(bucketName);
-let file;
+})
+const bucketName = 'ogpimage'
+const bucket = storage.bucket(bucketName)
+let file
 
 app.get('/hello', (req, res) => {
-  res.json({ message: 'hello, api' });
-});
+  res.json({ message: 'hello, api' })
+})
+
+app.get('/ogp', async (req, res, next) => {
+  try {
+    const [url] = await bucket.file('198194').getSignedUrl({
+      action: 'read',
+      expires: Date.now() + 1000 * 60 * 60 * 24,
+    })
+    res.status(200).send(url)
+  } catch (error) {
+    next(error)
+  }
+})
 
 app.post('/upload', (req, res) => {
-  const fileName = String(Math.round(Math.random() * 1000000)); // ファイル名。適当
-  file = bucket.file(fileName);
+  const fileName = String(Math.round(Math.random() * 1000000)) // ファイル名。適当
+  file = bucket.file(fileName)
   upload(req.body.imagebuffer).then(() => {
-    res.status(200).send(fileName);
-  });
-});
+    res.status(200).send(fileName)
+  })
+})
 
 async function upload(data) {
   try {
     const base64EncodedImageString = data.replace(
       /^data:image\/\w+;base64,/,
       ''
-    );
-    const imageBuffer = Buffer.from(base64EncodedImageString, 'base64');
+    )
+    const imageBuffer = Buffer.from(base64EncodedImageString, 'base64')
     await file.save(imageBuffer, {
       metadata: { contentType: 'image/jpg' },
-    });
+    })
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
 module.exports = {
   path: '/api',
   handler: app,
-};
+}

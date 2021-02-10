@@ -1,28 +1,17 @@
 <template>
   <div class="container">
     <div>
-      <Share />
-      <div v-if="responseHello">
-        {{ responseHello.data }}
-      </div>
+      <EditImage />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, useAsync } from '@nuxtjs/composition-api';
-import axios from 'axios';
+import { defineComponent } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
-    const responseHello = useAsync(() =>
-      axios.get('http://localhost:3000/api/hello')
-    );
-    return {
-      responseHello,
-    };
-  },
-});
+  setup() {},
+})
 </script>
 
 <style scoped>
