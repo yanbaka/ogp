@@ -106,10 +106,10 @@ export default defineComponent({
         let params = new URLSearchParams()
         params.append('imagebuffer', methods.tobase64())
         app.$axios
-          .post('http://localhost:3000/api/upload', params)
+          .post(`${process.env.BASE_URL}/api/upload`, params)
           .then((response) => {
             reactiveState.scene = 'share'
-            reactiveState.shareLink = `http://twitter.com/intent/tweet?url=http://localhost:3000/share?id=${response.data}`
+            reactiveState.shareLink = `http://twitter.com/intent/tweet?url=${process.env.BASE_URL}/share?id=${response.data}`
             console.log(response)
           })
           .catch((error) => {
