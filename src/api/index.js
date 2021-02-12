@@ -12,13 +12,9 @@ const bucketName = 'ogpimage'
 const bucket = storage.bucket(bucketName)
 let file
 
-app.get('/hello', (req, res) => {
-  res.json({ message: 'hello, api' })
-})
-
 app.get('/ogp', async (req, res, next) => {
   try {
-    const [url] = await bucket.file('198194').getSignedUrl({
+    const [url] = await bucket.file(req.query.id).getSignedUrl({
       action: 'read',
       expires: Date.now() + 1000 * 60 * 60 * 24,
     })

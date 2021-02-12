@@ -18,8 +18,13 @@ export default defineComponent({
   },
   setup() {
     const { app } = useContext()
+    const id = app.context.route.query.id
     const response = useAsync(() =>
-      app.$axios.get('http://localhost:3000/api/ogp')
+      app.$axios.get('http://localhost:3000/api/ogp', {
+        params: {
+          id: id,
+        },
+      })
     )
     return {
       response,

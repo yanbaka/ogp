@@ -1,9 +1,6 @@
 <template>
   <div>
-    <h1>画面プロトタイプ</h1>
-    <hr />
     <div class="sceneEdit">
-      <h2>編集画面</h2>
       <div class="image">
         <canvas class="canvas"> </canvas>
       </div>
