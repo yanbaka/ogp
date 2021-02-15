@@ -6,7 +6,7 @@ app.use(bodyParser.json()) // これがないとexpressのpostパラメーター
 const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({
   projectId: 'pikachu-test',
-  keyFilename: './pikachu-test-8dc69a5db590.json',
+  keyFilename: process.env.SERVICE_ACCOUNT_KEY,
 })
 const bucketName = 'ogpimage'
 const bucket = storage.bucket(bucketName)
