@@ -110,7 +110,10 @@ export default defineComponent({
         let params = new URLSearchParams()
         params.append('imagebuffer', methods.tobase64())
         app.$axios
-          .post(`${process.env.BASE_URL}/api/upload`, params)
+          .post(
+            `https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/upload`,
+            params
+          )
           .then((response) => {
             reactiveState.scene = 'share'
             reactiveState.shareLink = `http://twitter.com/intent/tweet?url=${process.env.BASE_URL}/share?id=${response.data}`
@@ -142,10 +145,9 @@ export default defineComponent({
       },
       hello() {
         app.$axios
-          .get(`http://localhost:5000/create-ogp-ee39e/us-central1/helloWorld`)
-          // .get(
-          //   'https://us-central1-create-ogp-ee39e.cloudfunctions.net/helloWorld'
-          // )
+          .get(
+            `https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/hello`
+          )
           .then((res) => {
             console.log(res.data)
           })

@@ -20,8 +20,11 @@ export default defineComponent({
     const { app } = useContext()
     const id = app.context.route.query.id
     if (!process.client) return
+    // const endpoint = 'http://localhost:3000/api/ogp'
+    const endpoint =
+      'https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/ogp'
     const response = useAsync(() =>
-      app.$axios.get(`${process.env.BASE_URL}/api/ogp`, {
+      app.$axios.get(endpoint, {
         params: {
           id: id,
         },
