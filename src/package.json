@@ -11,7 +11,8 @@
     "lint": "yarn lint:js && yarn lint:style",
     "dev": "run-p serve watch",
     "serve": "nuxt-ts",
-    "watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}"
+    "watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
+    "functions": "firebase serve --only functions"
   },
   "dependencies": {
     "@google-cloud/storage": "^5.7.4",

@@ -2,12 +2,13 @@
   <div>
     <div class="sceneEdit">
       <div class="image">
-        <canvas class="canvas"> </canvas>
+        <canvas class="canvas"></canvas>
       </div>
-      <input type="file" accept="*" @change="previewImage" />
+      <input type="file" accept=".jpg, .jpeg, .png" @change="previewImage" />
       <button :disabled="scene !== 'selected'" @click="upload">
         画像編集完了
       </button>
+      <button @click="hello">hello world</button>
       <a
         class="shareButton"
         v-if="scene === 'share'"
@@ -27,7 +28,10 @@ import {
   toRefs,
   useContext,
 } from '@nuxtjs/composition-api'
-import * as PIXI from 'pixi.js'
+let PIXI: any
+if (process.client) {
+  PIXI = require('pixi.js')
+}
 
 export default defineComponent({
   setup() {
@@ -135,6 +139,16 @@ export default defineComponent({
           type: 'image/png',
         })
         console.log(shareImg)
+      },
+      hello() {
+        app.$axios
+          .get(`http://localhost:5000/create-ogp-ee39e/us-central1/helloWorld`)
+          // .get(
+          //   'https://us-central1-create-ogp-ee39e.cloudfunctions.net/helloWorld'
+          // )
+          .then((res) => {
+            console.log(res.data)
+          })
       },
     }
 

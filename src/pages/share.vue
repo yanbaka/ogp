@@ -19,6 +19,7 @@ export default defineComponent({
   setup() {
     const { app } = useContext()
     const id = app.context.route.query.id
+    if (!process.client) return
     const response = useAsync(() =>
       app.$axios.get(`${process.env.BASE_URL}/api/ogp`, {
         params: {
