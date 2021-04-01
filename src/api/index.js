@@ -1,11 +1,13 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
+app.use(cors())
 const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' })) // postで渡せる容量を増やす
 app.use(bodyParser.json()) // これがないとexpressのpostパラメーターが空になる
 const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({
-  projectId: 'pikachu-test',
+  projectId: 'create-ogp',
   keyFilename: process.env.SERVICE_ACCOUNT_KEY,
 })
 const bucketName = 'ogpimage'

@@ -109,11 +109,11 @@ export default defineComponent({
       async upload() {
         let params = new URLSearchParams()
         params.append('imagebuffer', methods.tobase64())
+        // const endpoint = `http://localhost:5000/create-ogp-ee39e/us-central1/api/upload`
+        const endpoint =
+          'https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/upload'
         app.$axios
-          .post(
-            `https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/upload`,
-            params
-          )
+          .post(endpoint, params)
           .then((response) => {
             reactiveState.scene = 'share'
             reactiveState.shareLink = `http://twitter.com/intent/tweet?url=${process.env.BASE_URL}/share?id=${response.data}`

@@ -20,7 +20,7 @@ export default defineComponent({
     const { app } = useContext()
     const id = app.context.route.query.id
     if (!process.client) return
-    // const endpoint = 'http://localhost:3000/api/ogp'
+    // const endpoint = `http://localhost:5000/create-ogp-ee39e/us-central1/api/ogp`
     const endpoint =
       'https://us-central1-create-ogp-ee39e.cloudfunctions.net/api/ogp'
     const response = useAsync(() =>

@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 app.use(bodyParser.json()) // これがないとexpressのpostパラメーターが空になる
 const { Storage } = require('@google-cloud/storage')
 const storage = new Storage({
-  projectId: 'pikachu-test',
+  projectId: 'create-ogp',
   keyFilename: process.env.SERVICE_ACCOUNT_KEY,
 })
 const bucketName = 'ogpimage'

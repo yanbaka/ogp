@@ -22,6 +22,7 @@
     "@nuxtjs/dotenv": "^1.4.1",
     "body-parser": "^1.19.0",
     "core-js": "^3.8.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "nuxt": "^2.14.12",
     "pixi.js": "^5.3.7"
